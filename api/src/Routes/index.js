@@ -1,6 +1,10 @@
 const { Router } = require('express');
 const router = Router();
 const { getSearchMulti } = require('../controllers API/searchbar-controller')
+const mercadopago = require("../services/mercadoPago")
+const { get_preference } = require("../services/preferences");
+
+
 // const { Movies, Genres } = require('../db.js');
 
 // Import functions from controllers:
@@ -39,6 +43,30 @@ router.get('/home/search', async (req, res) => {
     }
 
 })
+
+
+router.post("/payment", async (req, res) =>{
+
+try {
+  const {name, email, id} = req.body
+  const preferences = get_preference(name, email, id);
+  const response = await mercadopago.preferences.create(preferences);
+  res
+    .status(200)
+    .json({
+      id: response.body.id,
+      collector_id: response.body.collector_id,
+      response,
+    });
+} catch (error) {
+  res.status(500).send(error.message);
+}
+});
+
+
+
+
+
 
 
 module.exports = router;
