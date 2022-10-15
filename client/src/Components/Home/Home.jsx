@@ -1,49 +1,51 @@
-import React, { useEffect } from "react";
-import NavBar from "../NavBar/NavBar";
-import Footer from "./Chakra UI Components/Footer";
-import MainMovieMenu from "./Chakra UI Components/MainMovieMenu";
-import Carrousel from "../Carrousel/Carrousel.jsx"
-import { useDispatch, useSelector } from "react-redux";
-import { getHomeAll } from "../../Redux/actions";
+import React, { useEffect } from 'react';
+import NavBar from '../NavBar/NavBar';
+import Footer from './Chakra UI Components/Footer';
+import MainMovieMenu from './Chakra UI Components/MainMovieMenu';
+import Carrousel from '../Carrousel/Carrousel.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { getHomeAll } from '../../Redux/actions';
+import Loader from '../Loader/Loader';
 
+export default function Home() {
+  const dispatch = useDispatch();
+  const { carrousels_home, loading } = useSelector((state) => state);
 
-export default function Home(){
+  useEffect(() => {
+    if (!carrousels_home.allCarruselsMovies) dispatch(getHomeAll());
+  }, []);
 
-    const dispatch = useDispatch();
-    const { carrousels_home, loading } = useSelector( state => state)
-        
-    useEffect( () =>{ if (!carrousels_home.allCarruselsMovies) dispatch(getHomeAll()) } , [] );
+  if (!loading) {
+    var movieCarrousel = carrousels_home.allCarruselsMovies;
+    var SeriesCarrousel = carrousels_home.allCarruselsSeries;
 
-    if(!loading){
-        var movieCarrousel = carrousels_home.allCarruselsMovies;
-        var SeriesCarrousel = carrousels_home.allCarruselsSeries;
-
-        if(movieCarrousel){
-            var topTrendingMovie = movieCarrousel.trending[0];
-        }
+    if (movieCarrousel) {
+      var topTrendingMovie = movieCarrousel.trending[0];
     }
+  }
 
-
-    return (
-        
+  return (
+    <div>
+      <NavBar />
+      {loading || !carrousels_home.allCarruselsMovies ? (
+        <Loader />
+      ) : (
         <div>
-            <NavBar/>
-            { loading || !carrousels_home.allCarruselsMovies  ? "Loading" :
-            <div>
-            <MainMovieMenu
-                title={topTrendingMovie.title}
-                id={topTrendingMovie.id}
-                poster={topTrendingMovie.back_poster}/>
-            <Carrousel movies={movieCarrousel.trending}/>
-            <Carrousel movies={movieCarrousel.on_theaters}/>
-            <Carrousel movies={movieCarrousel.populars}/>
-            <Carrousel movies={movieCarrousel.topRated}/>
-            <Carrousel movies={movieCarrousel.upComing}/>
-            <Carrousel movies={SeriesCarrousel.topRatedSeries}/>
-            <Carrousel movies={SeriesCarrousel.latestSeries}/>
-            </div>
-            }
-            <Footer/>
+          <MainMovieMenu
+            title={topTrendingMovie.title}
+            id={topTrendingMovie.id}
+            poster={topTrendingMovie.back_poster}
+          />
+          <Carrousel movies={movieCarrousel.trending} />
+          <Carrousel movies={movieCarrousel.on_theaters} />
+          <Carrousel movies={movieCarrousel.populars} />
+          <Carrousel movies={movieCarrousel.topRated} />
+          <Carrousel movies={movieCarrousel.upComing} />
+          <Carrousel movies={SeriesCarrousel.topRatedSeries} />
+          <Carrousel movies={SeriesCarrousel.latestSeries} />
         </div>
-    )
+      )}
+      <Footer />
+    </div>
+  );
 }

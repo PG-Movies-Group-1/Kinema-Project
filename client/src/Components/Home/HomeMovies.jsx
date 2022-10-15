@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import NavBar from "../NavBar/NavBar";
-import Footer from "./Chakra UI Components/Footer";
-import { clearMovies, getMovies } from "../../Redux/actions";
-import DataList from "../DataList/DataList";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import NavBar from '../NavBar/NavBar';
+import Footer from './Chakra UI Components/Footer';
+import { clearMovies, getMovies } from '../../Redux/actions';
+import DataList from '../DataList/DataList';
+import Louder from '../Loader/Loader';
 
 export default function HomeMovies() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function HomeMovies() {
 
   useEffect(() => {
     dispatch(getMovies(page));
-    return () => dispatch(clearMovies())
+    return () => dispatch(clearMovies());
   }, [page]);
 
   useEffect(() => {
@@ -23,7 +24,11 @@ export default function HomeMovies() {
   return (
     <div>
       <NavBar />
-      <DataList data={moviesToShow} next={setPage} />
+      {moviesToShow.length === 0 ? (
+        <Louder />
+      ) : (
+        <DataList data={moviesToShow} next={setPage} />
+      )}
       <Footer />
     </div>
   );

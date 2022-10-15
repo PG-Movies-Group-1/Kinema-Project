@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import NavBar from "../NavBar/NavBar";
-import Footer from "./Chakra UI Components/Footer";
-import { clearTvShows, getTvShows } from "../../Redux/actions";
-import DataList from "../DataList/DataList";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import NavBar from '../NavBar/NavBar';
+import Footer from './Chakra UI Components/Footer';
+import { clearTvShows, getTvShows } from '../../Redux/actions';
+import DataList from '../DataList/DataList';
+import Louder from '../Loader/Loader';
 
 export default function HomeTVShows() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function HomeTVShows() {
 
   useEffect(() => {
     dispatch(getTvShows(page));
-    return () => dispatch(clearTvShows())
+    return () => dispatch(clearTvShows());
   }, [page]);
 
   useEffect(() => {
@@ -22,9 +23,13 @@ export default function HomeTVShows() {
 
   return (
     <div>
-        <NavBar />
+      <NavBar />
+      {seriesToShow.length === 0 ? (
+        <Louder />
+      ) : (
         <DataList data={seriesToShow} next={setPage} />
-        <Footer />
+      )}
+      <Footer />
     </div>
   );
 }
