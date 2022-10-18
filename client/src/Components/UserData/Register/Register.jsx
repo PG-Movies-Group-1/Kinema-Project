@@ -67,6 +67,9 @@ export default function Register() {
     if (!user.displayName && !user.email && !user.password && user.password2) {
       return setError("Debes completar todos tus datos")
     }
+    if(user.password.length < 6){
+      return setError("La contraseña debe tener mas de seis caracteres")
+    }
   
     else {
 
@@ -74,9 +77,8 @@ export default function Register() {
         await signup(user.email, user.password, user.displayName);
         navigate('/profile');
       } catch (error) {
-        if (user.email > 2)
-        setError("Ese email ya esta registrado");
-        else {
+     
+        {
           setError("Ese email ya esta registrado")
 
         }
