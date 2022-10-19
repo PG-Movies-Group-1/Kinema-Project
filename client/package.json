@@ -11,6 +11,10 @@
     "@fontsource/lora": "^4.5.12",
     "@fontsource/nunito": "^4.5.11",
     "@fontsource/raleway": "^4.5.11",
+    "@mui/material": "^5.10.10",
+    "@mui/styled-engine-sc": "^5.10.6",
+    "@mui/x-data-grid": "^5.17.7",
+    "@mui/x-data-grid-generator": "^5.17.7",
     "@stripe/react-stripe-js": "^1.12.0",
     "@stripe/stripe-js": "^1.40.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -35,6 +39,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

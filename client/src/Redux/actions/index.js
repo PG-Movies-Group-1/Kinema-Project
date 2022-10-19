@@ -1,8 +1,6 @@
 import axios from 'axios';
-
-import { useAuth } from "../../Components/AuthContext/AuthContext";
-import { doc, getDoc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
-import { auth, firestore } from "../../Components/AuthContext/firebase.js";
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from "../../Components/AuthContext/firebase.js";
 
 // Import variables of actions:
 

@@ -1,6 +1,5 @@
 import { useAuth } from "../../AuthContext/AuthContext"
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react";
 import {
     Heading,
     Avatar,
@@ -11,35 +10,18 @@ import {
     Button
   } from '@chakra-ui/react';
 import { Link as RouteLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function UserProfile(){
     const navigate = useNavigate()
-    const {user, logout, loadingUser, read} = useAuth()
-    const [username1, setUsername1] = useState()
-    const [mail, setMail] = useState()
-    const [image, setImage] = useState()
-    const [typeSub, setTypeSub] = useState()
-    const [admin, setAdmin] = useState()
+    const {logout, loadingUser} = useAuth()
+    const userData = useSelector(state => state.user)
 
     async function logOut(){
        await logout()
         navigate("/")
     }
-
-
-    useEffect(()=>{
-        async function exe(){
-            let dataUser = await read(user.uid)
-            console.log(dataUser)
-            setUsername1(dataUser.username)
-            setMail(dataUser.email)
-            setImage(dataUser.avatar)
-            setTypeSub(dataUser.subscription)
-            setAdmin(dataUser.admin)
-        }
-        exe()
-    }, [user.uid])
-    
+   
 
     if(loadingUser) return <h1>loading</h1>
 
@@ -58,20 +40,20 @@ export default function UserProfile(){
         textAlign={'center'}>
         <Avatar
           size={'xl'}
-          src={image}
+          src={userData.avatar}
           alt={'Avatar Alt'}
           mb={4}
           pos={'relative'}
          
         />
         <Heading fontSize={'2xl'} fontFamily={'body'}>
-             {username1}
+             {userData.username}
         </Heading>
         <Text fontWeight={600} color={'gray.500'}  mb={4} marginTop={"10px"} >
-         Email: {mail}
+         Email: {userData.email}
         </Text>
         <Text fontWeight={600} color={'gray.500'}  mb={4} marginTop={"10px"} >
-         Plan: {typeSub === 1 ? "Basic" : "Premium" }
+         Plan: {userData.subscription === 1 ? "Basic" : "Premium" }
         </Text>
         <Button
            /*  flex={1} */
@@ -89,7 +71,7 @@ export default function UserProfile(){
           </Button>
           <Center marginTop={"20px"} >
           {
-            admin ? <Button
+            userData.admin ? <Button
             fontSize={'sm'}
             bg={'orange.700'}
             color={'white'}

@@ -67,6 +67,11 @@ export default function AuthProvider({ children }) {
       (userFirebase) => userFirebase
     );
     const googleRef = doc(firestore, `/users/${infoUser.user.uid}`);
+    const docSnap = await getDoc(googleRef);
+
+    if (docSnap.exists()) return dispatch(loadUserData(infoUser.user.uid))
+
+  /*   if(googleRef) return dispatch(loadUserData(infoUser.user.uid)); */
     setDoc(googleRef, {
       username: infoUser.user.displayName,
       email: infoUser.user.email,

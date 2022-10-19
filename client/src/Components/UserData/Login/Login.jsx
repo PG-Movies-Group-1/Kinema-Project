@@ -48,7 +48,8 @@ export default function Login() {
 
   async function handleGoogleSignin() {
     await loginWithGoogle();
-    navigate('/home');
+  setTimeout(() => navigate('/home'), 1000)
+    ;
   }
 
   return (

@@ -16,6 +16,7 @@ import Register from './Components/UserData/Register/Register.jsx';
 import Home from './Components/Home/Home';
 import PaymentCheckout from './Components/UserData/PaymentCheckout/PaymentCheckout.jsx';
 import PaymentCheckoutRent from './Components/UserData/PaymentCheckout/PaymentCheckoutRent.jsx';
+import Admin from './Components/UserData/Admin/Admin.jsx';
 
 // Create App component:
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/payment" element={<PaymentCheckout />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/payment/rent" element={<PaymentCheckoutRent />} />
         <Route
           path="/profile"
