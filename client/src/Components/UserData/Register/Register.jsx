@@ -27,7 +27,6 @@ export default function Register() {
     displayName: '',
     email: '',
     password: '',
-    password2: "",
   });
 
   const { signup, signupWithGoogle } = useAuth();
@@ -42,44 +41,37 @@ export default function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!user.displayName && !user.email && !user.password && !user.password2) {
-      return setError("Debes completar todos tus datos")
+    if (!user.displayName && !user.email && !user.password) {
+      return setError("Please fill in all fields.")
     }
     if (user.displayName && !user.email) {
-      return setError("Debes completar tu email")
+      return setError("Please add your email.")
     }
     if (!user.displayName && user.email) {
-      return setError("Debes completar tu username")
+      return setError("Please add your username.")
     }
-    if (user.displayName && user.email && !user.password && !user.password2) {
-      return setError("Debes completar tu contraseña")
-    }
-    if (user.displayName && user.email && user.password && !user.password2) {
-      return setError("Debes repetir tu contraseña")
-    }
-    if (user.displayName && user.email && user.password !== user.password2) {
-      return setError("Debes repetir tu contraseña correctamente")
+    if (user.displayName && user.email && !user.password) {
+      return setError("Please add your password.")
     }
 
-    if (!user.displayName && !user.email && user.password && !user.password2) {
+    if (!user.displayName && !user.email && user.password) {
       return setError("Debes completar todos tus datos ")
     }
-    if (!user.displayName && !user.email && !user.password && user.password2) {
-      return setError("Debes completar todos tus datos")
+    if (!user.displayName && !user.email && !user.password) {
+      return setError("Please fill in all fields.")
     }
     if(user.password.length < 6){
-      return setError("La contraseña debe tener mas de seis caracteres")
+      return setError("Password must be at least 6 characters long.")
     }
   
     else {
-
       try {
         await signup(user.email, user.password, user.displayName);
         navigate('/profile');
       } catch (error) {
      
         {
-          setError("Ese email ya esta registrado")
+          setError("Email is already in use.")
 
         }
 
