@@ -55,7 +55,7 @@ export default function Register() {
     }
 
     if (!user.displayName && !user.email && user.password) {
-      return setError("Debes completar todos tus datos ")
+      return setError("Please fill in all fields.")
     }
     if (!user.displayName && !user.email && !user.password) {
       return setError("Please fill in all fields.")
@@ -185,24 +185,6 @@ export default function Register() {
                     marginTop={'20px'}
                     name="password"
                     value={user.password}
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                    color={'gray.500'}
-                    _placeholder={{
-                      color: 'gray.500',
-                    }}
-                  />
-                  <Input
-                    placeholder="Repeat your password"
-                    type="password"
-                    bg={'gray.100'}
-                    border={0}
-                    id={3}
-                    autoComplete={'none'}
-                    marginTop={'20px'}
-                    name="password2"
-                    value={user.password2}
                     onChange={(e) => {
                       handleChange(e);
                     }}
