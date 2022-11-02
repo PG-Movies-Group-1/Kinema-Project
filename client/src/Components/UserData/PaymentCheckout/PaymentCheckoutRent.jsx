@@ -62,7 +62,7 @@ const CheckoutForm = () => {
   }
 
   const now = new Date();
-  const rentDuration = 3600 * 24 * 4 * 1000; // 4 days
+  const rentDuration = 3600 * 24 * 5 * 1000;
   const date = moment(now.getTime() + 345600000).format('MMMM Do YYYY');
 
   const rentedMovie = {
@@ -166,7 +166,7 @@ const CheckoutForm = () => {
             title: title,
             img: poster,
             date: date,
-            user: username
+            user: username,
           });
           dispatch(rentVideo(rentedMovie));
           await updateRented(rentedMovie);
